@@ -9,7 +9,7 @@ export const connection = new Connection(DEVNET_RPC, "confirmed");
 // Replace with actual program ID after anchor deploy
 // Must be a valid base58 string otherwise module evaluation throws an exception!
 export const PROGRAM_ID = new PublicKey(
-  import.meta.env.VITE_PROGRAM_ID || "11111111111111111111111111111111"
+  import.meta.env.VITE_PROGRAM_ID || "AMcpmff8xMoDms8Y1VYhPCEZy27Nso8pWHqjFLLyddYS"
 );
 
 // USDC devnet mint (Circle's official devnet USDC or create your own)

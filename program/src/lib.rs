@@ -2,7 +2,7 @@ use anchor_lang::prelude::*;
 use anchor_spl::associated_token::AssociatedToken;
 use anchor_spl::token::{self, Token, TokenAccount, Transfer};
 
-declare_id!("REPLACE_AFTER_DEPLOY");
+declare_id!("AMcpmff8xMoDms8Y1VYhPCEZy27Nso8pWHqjFLLyddYS");
 
 #[program]
 pub mod nexpay_program {
