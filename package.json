@@ -26,7 +26,8 @@
     "react-router-dom": "^6.26.0",
     "rpc-websockets": "^7.11.0",
     "tailwind-merge": "^3.5.0",
-    "zustand": "^5.0.13"
+    "zustand": "^5.0.13",
+    "firebase": "^10.8.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

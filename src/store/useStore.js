@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { onFirebaseAuthStateChanged, fetchUserProfile, signOutFromFirebase } from '../lib/firebase';
 
 const initialTransactions = [
   { id: 1, type: 'send', recipient: 'Ali Hassan', country: 'PK', date: 'May 8', amount: 120.00, status: 'Completed', avatar: 'AH' },
@@ -32,8 +33,43 @@ export const useStore = create(
       user: null,
 
       login: (userData) => set({ isLoggedIn: true, user: userData, isOnboarded: true }),
-      logout: () => set({ isLoggedIn: false, user: null }),
+      logout: () => {
+        signOutFromFirebase();
+        set({ isLoggedIn: false, user: null });
+      },
       completeOnboarding: () => set({ isOnboarded: true }),
+      
+      initFirebase: () => {
+        const unsubscribe = onFirebaseAuthStateChanged(async (firebaseUser) => {
+          if (firebaseUser) {
+            try {
+              const profile = await fetchUserProfile(firebaseUser.uid);
+              if (profile) {
+                set({
+                  isLoggedIn: true,
+                  isOnboarded: true,
+                  user: {
+                    uid: profile.uid,
+                    name: profile.username,
+                    email: profile.email,
+                    phone: profile.phone,
+                    walletAddress: profile.walletAddress,
+                    kycStatus: profile.kycStatus,
+                    kycVerified: profile.kycVerified,
+                    kycDetails: profile.kycDetails,
+                    tier: profile.kycVerified ? 'Pro' : 'Free',
+                  }
+                });
+              }
+            } catch (err) {
+              console.error("Zustand initFirebase error:", err);
+            }
+          } else {
+            set({ isLoggedIn: false, user: null });
+          }
+        });
+        return unsubscribe;
+      },
       
       // Balances
       balances: {

@@ -8,6 +8,7 @@ import { transferStablecoin, fetchUserAccount, explorerLink } from '../lib/nexpa
 import { PublicKey } from '@solana/web3.js';
 import { WalletGuard } from '../components/WalletGuard';
 import { useUsdcBalance } from '../hooks/useUsdcBalance';
+import { logTransactionToFirebase } from '../lib/firebase';
 
 export const SendMoney = () => {
   const [step, setStep] = useState(1);
@@ -126,6 +127,21 @@ export const SendMoney = () => {
       setTxSignature(res.signature);
       setTxFee(res.fee);
       setTxNet(res.netAmount);
+      
+      // Log transaction details to Firebase Firestore for data collection
+      try {
+        await logTransactionToFirebase({
+          signature: res.signature,
+          senderAddress: walletAdapter.publicKey.toString(),
+          recipientAddress: recipientPubkey.toString(),
+          amount: numAmount,
+          currency: currency.toUpperCase(),
+          fee: res.fee,
+          timestamp: Math.floor(Date.now() / 1000)
+        });
+      } catch (logErr) {
+        console.error("Failed to log transaction data to Firebase:", logErr);
+      }
       
       refreshBalances();
       refreshUserAccount();

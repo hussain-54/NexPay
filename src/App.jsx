@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useStore } from './store/useStore';
 
@@ -58,6 +58,15 @@ const withErrorBoundary = (Component) => (
 );
 
 const App = () => {
+  const initFirebase = useStore((state) => state.initFirebase);
+
+  useEffect(() => {
+    if (initFirebase) {
+      const unsubscribe = initFirebase();
+      return () => unsubscribe && unsubscribe();
+    }
+  }, [initFirebase]);
+
   return (
     <div className="w-full h-full bg-bgDark text-[#F9FAFB] font-sans relative overflow-hidden flex flex-col">
       <AppErrorBoundary>

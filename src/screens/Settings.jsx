@@ -11,7 +11,7 @@ import { WalletGuard } from '../components/WalletGuard';
 
 export const Settings = () => {
   const navigate = useNavigate();
-  const { logout } = useStore();
+  const { user, logout } = useStore();
   const { showToast } = useToast();
   const { disconnect, userAccount, refreshUserAccount, walletAdapter } = useSolanaWallet();
   
@@ -73,37 +73,35 @@ export const Settings = () => {
           <Card className="flex flex-col space-y-4">
             <div className="flex items-center space-x-4">
               <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-2xl font-bold text-white shrink-0">
-                {userAccount?.username?.charAt(0) || 'U'}
+                {(user?.name || userAccount?.username || 'U').charAt(0)}
               </div>
               <div className="flex-1 min-w-0">
-                <h2 className="text-xl font-bold text-textPrimary truncate">{userAccount?.username || 'User'}</h2>
+                <h2 className="text-xl font-bold text-textPrimary truncate">{user?.name || userAccount?.username || 'User'}</h2>
                 <div className="flex items-center mt-1">
-                  <Shield size={14} className={userAccount?.kycVerified ? "text-accent" : "text-warning"} />
-                  <span className={`text-xs ml-1 font-medium ${userAccount?.kycVerified ? "text-accent" : "text-warning"}`}>
-                    {userAccount?.kycVerified ? "Verified ✓" : "Unverified — Complete KYC"}
+                  <Shield size={14} className={user?.kycVerified || userAccount?.kycVerified ? "text-accent" : user?.kycStatus === "pending" ? "text-warning" : "text-danger"} />
+                  <span className={`text-xs ml-1 font-medium ${user?.kycVerified || userAccount?.kycVerified ? "text-accent" : user?.kycStatus === "pending" ? "text-warning" : "text-danger"}`}>
+                    {user?.kycVerified || userAccount?.kycVerified ? "Verified ✓" : user?.kycStatus === "pending" ? "Pending Verification..." : "Unverified — Complete KYC"}
                   </span>
                 </div>
               </div>
             </div>
             
-            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-borderDark">
+            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-borderDark text-sm">
               <div>
-                <p className="text-xs text-textMuted">Tier</p>
-                <p className="font-bold text-sm">{tierName}</p>
+                <p className="text-xs text-textMuted">Email</p>
+                <p className="font-semibold text-textPrimary truncate">{user?.email || 'Not Configured'}</p>
               </div>
               <div>
-                <p className="text-xs text-textMuted">Total Transfers</p>
-                <p className="font-bold text-sm">{userAccount?.transferCount || 0}</p>
+                <p className="text-xs text-textMuted">Phone</p>
+                <p className="font-semibold text-textPrimary truncate">{user?.phone || 'Not Configured'}</p>
               </div>
               <div>
-                <p className="text-xs text-textMuted">Member Since</p>
-                <p className="font-bold text-sm">{joinDate}</p>
+                <p className="text-xs text-textMuted">Account Tier</p>
+                <p className="font-bold text-primary">{user?.tier || tierName}</p>
               </div>
               <div>
-                <p className="text-xs text-textMuted">Referral Code</p>
-                <button onClick={handleCopyCode} className="font-mono text-sm font-bold text-primary flex items-center hover:underline">
-                  {userAccount?.referralCode || 'N/A'} <Copy size={12} className="ml-1" />
-                </button>
+                <p className="text-xs text-textMuted">Solana Wallet</p>
+                <p className="font-mono text-xs truncate max-w-[120px]">{user?.walletAddress || 'Disconnected'}</p>
               </div>
             </div>
           </Card>
