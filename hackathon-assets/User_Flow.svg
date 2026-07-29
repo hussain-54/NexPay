@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366F1"/>
+      <stop offset="100%" style="stop-color:#10B981"/>
+    </linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-opacity="0.35"/></filter>
+  </defs>
+  <rect width="1920" height="1080" fill="#05050A"/>
+  <ellipse cx="960" cy="120" rx="700" ry="280" fill="#6366F1" opacity="0.12"/>
+  <text x="80" y="100" fill="#F9FAFB" font-size="28" font-weight="700" font-family='Plus Jakarta Sans, Arial, sans-serif'>NexPay</text>
+  <text x="80" y="200" fill="#F9FAFB" font-size="56" font-weight="800" font-family='Plus Jakarta Sans, Arial, sans-serif'>User Flow</text>
+  <text x="80" y="260" fill="#9CA3AF" font-size="28" font-family='Plus Jakarta Sans, Arial, sans-serif'>From signup to first cross-border send</text>
+  
+    
+  <rect x="100" y="360" width="240" height="100" rx="20" fill="#13131A" stroke="#6366F1" stroke-opacity="0.4" stroke-width="2" filter="url(#shadow)"/>
+  <text x="124" y="408" fill="#F9FAFB" font-size="26" font-weight="700" font-family='Plus Jakarta Sans, Arial, sans-serif'>Welcome</text>
+  <text x="124" y="448" fill="#9CA3AF" font-size="20" font-family='Plus Jakarta Sans, Arial, sans-serif'>Value prop</text>
+    
+  <rect x="380" y="360" width="240" height="100" rx="20" fill="#13131A" stroke="#6366F1" stroke-opacity="0.4" stroke-width="2" filter="url(#shadow)"/>
+  <text x="404" y="408" fill="#F9FAFB" font-size="26" font-weight="700" font-family='Plus Jakarta Sans, Arial, sans-serif'>Register + OTP</text>
+  <text x="404" y="448" fill="#9CA3AF" font-size="20" font-family='Plus Jakarta Sans, Arial, sans-serif'>Identity seed</text>
+    
+  <rect x="660" y="360" width="240" height="100" rx="20" fill="#13131A" stroke="#6366F1" stroke-opacity="0.4" stroke-width="2" filter="url(#shadow)"/>
+  <text x="684" y="408" fill="#F9FAFB" font-size="26" font-weight="700" font-family='Plus Jakarta Sans, Arial, sans-serif'>KYC</text>
+  <text x="684" y="448" fill="#9CA3AF" font-size="20" font-family='Plus Jakarta Sans, Arial, sans-serif'>ID + selfie</text>
+    
+  <rect x="940" y="360" width="240" height="100" rx="20" fill="#13131A" stroke="#6366F1" stroke-opacity="0.4" stroke-width="2" filter="url(#shadow)"/>
+  <text x="964" y="408" fill="#F9FAFB" font-size="26" font-weight="700" font-family='Plus Jakarta Sans, Arial, sans-serif'>Fund wallet</text>
+  <text x="964" y="448" fill="#9CA3AF" font-size="20" font-family='Plus Jakarta Sans, Arial, sans-serif'>USDC on Solana</text>
+    
+  <rect x="1220" y="360" width="240" height="100" rx="20" fill="#13131A" stroke="#6366F1" stroke-opacity="0.4" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1244" y="408" fill="#F9FAFB" font-size="26" font-weight="700" font-family='Plus Jakarta Sans, Arial, sans-serif'>Send / FX</text>
+  <text x="1244" y="448" fill="#9CA3AF" font-size="20" font-family='Plus Jakarta Sans, Arial, sans-serif'>Recipient paid</text>
+    
+  <rect x="1500" y="360" width="240" height="100" rx="20" fill="#13131A" stroke="#6366F1" stroke-opacity="0.4" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1524" y="408" fill="#F9FAFB" font-size="26" font-weight="700" font-family='Plus Jakarta Sans, Arial, sans-serif'>Track</text>
+  <text x="1524" y="448" fill="#9CA3AF" font-size="20" font-family='Plus Jakarta Sans, Arial, sans-serif'>History + alerts</text>
+    <polyline points="340,410 380,410" stroke="#6366F1" stroke-width="4" fill="none"/>
+    <polyline points="620,410 660,410" stroke="#6366F1" stroke-width="4" fill="none"/>
+    <polyline points="900,410 940,410" stroke="#6366F1" stroke-width="4" fill="none"/>
+    <polyline points="1180,410 1220,410" stroke="#6366F1" stroke-width="4" fill="none"/>
+    <polyline points="1460,410 1500,410" stroke="#6366F1" stroke-width="4" fill="none"/>
+  <text x="80" y="1040" fill="#9CA3AF" font-size="22" font-family='Plus Jakarta Sans, Arial, sans-serif'>Hackathon presentation · Solana USDC remittance</text>
+</svg>

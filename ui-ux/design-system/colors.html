@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>NexPay Design System — Colors</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#05050A;color:#F9FAFB;padding:64px;max-width:1200px;margin:0 auto;line-height:1.6}
+a{color:#6366F1;text-decoration:none;font-weight:600}
+nav{display:flex;gap:24px;margin-bottom:48px;flex-wrap:wrap}
+nav a{padding:12px 20px;background:#13131A;border-radius:12px;border:1px solid rgba(255,255,255,.08)}
+h1{font-size:48px;font-weight:800;margin-bottom:16px;letter-spacing:-1px}
+h2{font-size:32px;margin:40px 0 20px;color:#A5B4FC}
+p{color:#9CA3AF;margin-bottom:16px}
+.swatch{display:flex;gap:24px;flex-wrap:wrap;margin:24px 0}
+.chip{width:160px;height:120px;border-radius:16px;display:flex;align-items:flex-end;padding:16px;font-weight:700;font-size:14px}
+.card{background:#13131A;border:1px solid rgba(255,255,255,.06);border-radius:24px;padding:32px;margin:16px 0}
+.btn{display:inline-block;padding:16px 32px;border-radius:16px;font-weight:700;margin:8px 8px 8px 0}
+.btn-p{background:linear-gradient(135deg,#6366F1,#4F46E5);color:#fff}
+.btn-a{background:linear-gradient(135deg,#10B981,#059669);color:#fff}
+.btn-d{background:#EF4444;color:#fff}
+.type-h1{font-size:64px;font-weight:800;letter-spacing:-2px}
+.type-h2{font-size:48px;font-weight:700}
+.type-body{font-size:18px;color:#9CA3AF}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
+</style></head><body>
+<nav>
+  <a href="index.html">Overview</a>
+  <a href="colors.html">Colors</a>
+  <a href="typography.html">Typography</a>
+  <a href="components.html">Components</a>
+</nav>
+<h1>Color tokens</h1>
+<div class="swatch">
+  <div class="chip" style="background:#6366F1">Primary #6366F1</div>
+  <div class="chip" style="background:#10B981">Accent #10B981</div>
+  <div class="chip" style="background:#EF4444">Danger #EF4444</div>
+  <div class="chip" style="background:#05050A;border:1px solid #333">BG #05050A</div>
+  <div class="chip" style="background:#13131A">Card #13131A</div>
+  <div class="chip" style="background:#F9FAFB;color:#05050A">Text #F9FAFB</div>
+  <div class="chip" style="background:#9CA3AF;color:#05050A">Muted #9CA3AF</div>
+</div>
+<p>Use primary for CTAs and links; accent for success states and money-in; danger for errors and sends-out emphasis.</p>
+</body></html>

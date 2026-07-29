@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366F1"/>
+      <stop offset="100%" style="stop-color:#10B981"/>
+    </linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-opacity="0.35"/></filter>
+  </defs>
+  <rect width="1920" height="1080" fill="#05050A"/>
+  <ellipse cx="960" cy="120" rx="700" ry="280" fill="#6366F1" opacity="0.12"/>
+  <text x="80" y="100" fill="#F9FAFB" font-size="28" font-weight="700" font-family='Plus Jakarta Sans, Arial, sans-serif'>NexPay</text>
+  <text x="80" y="200" fill="#F9FAFB" font-size="56" font-weight="800" font-family='Plus Jakarta Sans, Arial, sans-serif'>Firebase Integration</text>
+  <text x="80" y="260" fill="#9CA3AF" font-size="28" font-family='Plus Jakarta Sans, Arial, sans-serif'>Identity and off-chain state</text>
+  
+    
+  <rect x="180" y="400" width="380" height="150" rx="20" fill="#13131A" stroke="#6366F1" stroke-opacity="0.4" stroke-width="2" filter="url(#shadow)"/>
+  <text x="204" y="448" fill="#F9FAFB" font-size="26" font-weight="700" font-family='Plus Jakarta Sans, Arial, sans-serif'>Authentication</text>
+  <text x="204" y="488" fill="#9CA3AF" font-size="20" font-family='Plus Jakarta Sans, Arial, sans-serif'>Email + social · session tokens</text>
+    
+  <rect x="620" y="400" width="380" height="150" rx="20" fill="#13131A" stroke="#6366F1" stroke-opacity="0.4" stroke-width="2" filter="url(#shadow)"/>
+  <text x="644" y="448" fill="#F9FAFB" font-size="26" font-weight="700" font-family='Plus Jakarta Sans, Arial, sans-serif'>Firestore</text>
+  <text x="644" y="488" fill="#9CA3AF" font-size="20" font-family='Plus Jakarta Sans, Arial, sans-serif'>Profiles · KYC status · prefs</text>
+    
+  <rect x="1060" y="400" width="380" height="150" rx="20" fill="#13131A" stroke="#6366F1" stroke-opacity="0.4" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1084" y="448" fill="#F9FAFB" font-size="26" font-weight="700" font-family='Plus Jakarta Sans, Arial, sans-serif'>Cloud Functions</text>
+  <text x="1084" y="488" fill="#9CA3AF" font-size="20" font-family='Plus Jakarta Sans, Arial, sans-serif'>Webhooks · notifications</text>
+    
+  <rect x="500" y="620" width="920" height="130" rx="20" fill="#13131A" stroke="#6366F1" stroke-opacity="0.4" stroke-width="2" filter="url(#shadow)"/>
+  <text x="524" y="668" fill="#F9FAFB" font-size="26" font-weight="700" font-family='Plus Jakarta Sans, Arial, sans-serif'>Sync with wallet</text>
+  <text x="524" y="708" fill="#9CA3AF" font-size="20" font-family='Plus Jakarta Sans, Arial, sans-serif'>Link Solana pubkey to user doc</text>
+  <text x="80" y="1040" fill="#9CA3AF" font-size="22" font-family='Plus Jakarta Sans, Arial, sans-serif'>Hackathon presentation · Solana USDC remittance</text>
+</svg>

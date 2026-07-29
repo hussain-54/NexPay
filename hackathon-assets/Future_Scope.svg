@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366F1"/>
+      <stop offset="100%" style="stop-color:#10B981"/>
+    </linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-opacity="0.35"/></filter>
+  </defs>
+  <rect width="1920" height="1080" fill="#05050A"/>
+  <ellipse cx="960" cy="120" rx="700" ry="280" fill="#6366F1" opacity="0.12"/>
+  <text x="80" y="100" fill="#F9FAFB" font-size="28" font-weight="700" font-family='Plus Jakarta Sans, Arial, sans-serif'>NexPay</text>
+  <text x="80" y="200" fill="#F9FAFB" font-size="56" font-weight="800" font-family='Plus Jakarta Sans, Arial, sans-serif'>Future Scope</text>
+  <text x="80" y="260" fill="#9CA3AF" font-size="28" font-family='Plus Jakarta Sans, Arial, sans-serif'>Beyond hackathon MVP</text>
+  
+    
+  <rect x="120" y="380" width="520" height="140" rx="20" fill="#13131A" stroke="#6366F1" stroke-opacity="0.4" stroke-width="2" filter="url(#shadow)"/>
+  <text x="144" y="428" fill="#F9FAFB" font-size="26" font-weight="700" font-family='Plus Jakarta Sans, Arial, sans-serif'>Regulatory licenses</text>
+  <text x="144" y="468" fill="#9CA3AF" font-size="20" font-family='Plus Jakarta Sans, Arial, sans-serif'>MSB partners per corridor</text>
+    
+  <rect x="680" y="380" width="520" height="140" rx="20" fill="#13131A" stroke="#6366F1" stroke-opacity="0.4" stroke-width="2" filter="url(#shadow)"/>
+  <text x="704" y="428" fill="#F9FAFB" font-size="26" font-weight="700" font-family='Plus Jakarta Sans, Arial, sans-serif'>Stablecoin treasury</text>
+  <text x="704" y="468" fill="#9CA3AF" font-size="20" font-family='Plus Jakarta Sans, Arial, sans-serif'>Automated rebalancing</text>
+    
+  <rect x="1240" y="380" width="520" height="140" rx="20" fill="#13131A" stroke="#6366F1" stroke-opacity="0.4" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1264" y="428" fill="#F9FAFB" font-size="26" font-weight="700" font-family='Plus Jakarta Sans, Arial, sans-serif'>DeFi yield opt-in</text>
+  <text x="1264" y="468" fill="#9CA3AF" font-size="20" font-family='Plus Jakarta Sans, Arial, sans-serif'>Insured vaults for float</text>
+    
+  <rect x="400" y="580" width="1120" height="160" rx="20" fill="#13131A" stroke="#6366F1" stroke-opacity="0.4" stroke-width="2" filter="url(#shadow)"/>
+  <text x="424" y="628" fill="#F9FAFB" font-size="26" font-weight="700" font-family='Plus Jakarta Sans, Arial, sans-serif'>Vision</text>
+  <text x="424" y="668" fill="#9CA3AF" font-size="20" font-family='Plus Jakarta Sans, Arial, sans-serif'>Default global wallet for dollar-denominated work</text>
+  <text x="80" y="1040" fill="#9CA3AF" font-size="22" font-family='Plus Jakarta Sans, Arial, sans-serif'>Hackathon presentation · Solana USDC remittance</text>
+</svg>
