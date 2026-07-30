@@ -9,6 +9,8 @@ import { PublicKey } from '@solana/web3.js';
 import { WalletGuard } from '../components/WalletGuard';
 import { useUsdcBalance } from '../hooks/useUsdcBalance';
 import { logTransactionToFirebase } from '../lib/firebase';
+import { isSupabaseActive, logTransactionToSupabase } from '../lib/supabaseDb';
+import { useStore } from '../store/useStore';
 
 export const SendMoney = () => {
   const [step, setStep] = useState(1);
@@ -29,6 +31,7 @@ export const SendMoney = () => {
 
   const navigate = useNavigate();
   const { showToast } = useToast();
+  const { user } = useStore();
   const { walletAdapter, refreshBalances, refreshUserAccount, connected } = useSolanaWallet();
   const { balance: usdcBalance } = useUsdcBalance();
 
@@ -128,8 +131,19 @@ export const SendMoney = () => {
       setTxFee(res.fee);
       setTxNet(res.netAmount);
       
-      // Log transaction details to Firebase Firestore for data collection
+      // Log transaction to Supabase (preferred) and/or Firebase
       try {
+        if (isSupabaseActive()) {
+          await logTransactionToSupabase({
+            signature: res.signature,
+            senderAddress: walletAdapter.publicKey.toString(),
+            recipientAddress: recipientPubkey.toString(),
+            amount: numAmount,
+            currency: currency.toUpperCase(),
+            fee: res.fee,
+            senderId: user?.uid,
+          });
+        }
         await logTransactionToFirebase({
           signature: res.signature,
           senderAddress: walletAdapter.publicKey.toString(),
@@ -140,7 +154,7 @@ export const SendMoney = () => {
           timestamp: Math.floor(Date.now() / 1000)
         });
       } catch (logErr) {
-        console.error("Failed to log transaction data to Firebase:", logErr);
+        console.error("Failed to log transaction:", logErr);
       }
       
       refreshBalances();
