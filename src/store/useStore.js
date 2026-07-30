@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { onFirebaseAuthStateChanged, fetchUserProfile, signOutFromFirebase } from '../lib/firebase';
+import { isSupabaseActive, onSupabaseAuthChanged, fetchProfile, signOutFromSupabase } from '../lib/supabaseDb';
 
 const initialTransactions = [
   { id: 1, type: 'send', recipient: 'Ali Hassan', country: 'PK', date: 'May 8', amount: 120.00, status: 'Completed', avatar: 'AH' },
@@ -34,12 +35,44 @@ export const useStore = create(
 
       login: (userData) => set({ isLoggedIn: true, user: userData, isOnboarded: true }),
       logout: () => {
+        if (isSupabaseActive()) signOutFromSupabase();
         signOutFromFirebase();
         set({ isLoggedIn: false, user: null });
       },
       completeOnboarding: () => set({ isOnboarded: true }),
       
       initFirebase: () => {
+        if (isSupabaseActive()) {
+          return onSupabaseAuthChanged(async (supabaseUser) => {
+            if (supabaseUser) {
+              try {
+                const profile = await fetchProfile(supabaseUser.id);
+                if (profile) {
+                  set({
+                    isLoggedIn: true,
+                    isOnboarded: true,
+                    user: {
+                      uid: profile.id,
+                      name: profile.username,
+                      email: profile.email,
+                      phone: profile.phone,
+                      walletAddress: profile.wallet_address,
+                      kycStatus: profile.kyc_status,
+                      kycVerified: profile.kyc_verified,
+                      kycDetails: profile.kyc_details,
+                      tier: profile.kyc_verified ? 'Pro' : (profile.tier || 'Free'),
+                    }
+                  });
+                  return;
+                }
+              } catch (err) {
+                console.error("Supabase init error:", err);
+              }
+            }
+            // Keep local persisted session if profile table not ready yet
+          });
+        }
+
         const unsubscribe = onFirebaseAuthStateChanged(async (firebaseUser) => {
           if (firebaseUser) {
             try {

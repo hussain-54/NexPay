@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Shield, Key, HelpCircle, LogOut, ChevronRight, Copy, ExternalLink,
-  Snowflake, User, CreditCard, Gift, Crown, Lock, FileText, Bell
+  Snowflake, User, CreditCard, Gift, Crown, Lock, FileText, Bell, Database
 } from 'lucide-react';
 import { Button, Card, Switch, Avatar, Badge, ScreenHeader } from '../components/ui';
 import { useStore } from '../store/useStore';
@@ -110,6 +110,7 @@ export const Settings = () => {
           </Section>
 
           <Section title="Support">
+            <SettingLink icon={Database} title="Database Lab" desc="Supabase connection & articles" onClick={() => navigate('/database')} />
             <SettingLink icon={Bell} title="Notifications" onClick={() => navigate('/notifications')} />
             <SettingLink icon={HelpCircle} title="Help Center" onClick={() => navigate('/help')} />
             <SettingLink icon={FileText} title="Privacy & Terms" onClick={() => navigate('/privacy')} />

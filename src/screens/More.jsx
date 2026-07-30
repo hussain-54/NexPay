@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Gift, Users, Trophy, MessageCircle, HelpCircle, Shield, FileText,
   User, Gauge, Crown, Copy, ChevronRight, Send
 } from 'lucide-react';
-import { Button, Card, ScreenHeader, Avatar, Badge } from '../components/ui';
+import { Button, Card, ScreenHeader, Avatar, Badge, Skeleton } from '../components/ui';
 import { useStore } from '../store/useStore';
 import { useToast } from '../contexts/ToastContext';
 import { useSolanaWallet } from '../hooks/useSolanaWallet';
 import { WalletGuard } from '../components/WalletGuard';
+import { fetchArticles } from '../lib/supabaseDb';
 
 const Shell = ({ title, children, back = true }) => {
   const navigate = useNavigate();
@@ -106,19 +107,47 @@ export const SupportChat = () => {
 
 export const HelpCenter = () => {
   const navigate = useNavigate();
-  const faqs = [
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const fallback = [
     { q: 'How fast are transfers?', a: 'Solana settles in under a second.' },
     { q: 'What is the fee?', a: '0.1% flat on sends.' },
     { q: 'Which networks?', a: 'Solana devnet for this demo.' },
   ];
+
+  useEffect(() => {
+    fetchArticles()
+      .then(setArticles)
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <Shell title="Help Center">
-      {faqs.map(({ q, a }) => (
-        <Card key={q} className="space-y-2">
-          <p className="font-semibold flex items-center gap-2"><HelpCircle size={16} className="text-primary" /> {q}</p>
-          <p className="text-sm text-textMuted">{a}</p>
-        </Card>
-      ))}
+      {loading ? (
+        [1, 2, 3].map((i) => <Skeleton key={i} className="h-20 w-full" />)
+      ) : articles.length > 0 ? (
+        articles.map((a) => (
+          <Card key={a.id} className="space-y-2">
+            <div className="flex justify-between gap-2 items-start">
+              <p className="font-semibold flex items-center gap-2">
+                <HelpCircle size={16} className="text-primary shrink-0" /> {a.title}
+              </p>
+              <Badge variant="primary">{a.category}</Badge>
+            </div>
+            <p className="text-sm text-textMuted">{a.summary || a.body}</p>
+          </Card>
+        ))
+      ) : (
+        fallback.map(({ q, a }) => (
+          <Card key={q} className="space-y-2">
+            <p className="font-semibold flex items-center gap-2"><HelpCircle size={16} className="text-primary" /> {q}</p>
+            <p className="text-sm text-textMuted">{a}</p>
+          </Card>
+        ))
+      )}
+      <Button variant="secondary" className="w-full" onClick={() => navigate('/database')}>
+        Open Database Lab
+      </Button>
       <Button variant="secondary" className="w-full" onClick={() => navigate('/support')}>
         <MessageCircle size={16} className="mr-2" /> Chat with support
       </Button>

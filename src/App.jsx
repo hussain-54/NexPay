@@ -25,6 +25,7 @@ import {
   Referral, InviteFriends, Rewards, SupportChat, HelpCenter,
   Privacy, Terms, Profile, AccountLimits, PremiumUpgrade,
 } from './screens/More';
+import { DatabaseLab } from './screens/DatabaseLab';
 
 class AppErrorBoundary extends React.Component {
   constructor(props) {
@@ -115,6 +116,7 @@ const App = () => {
               <Route path="/profile" element={<ProtectedRoute>{withErrorBoundary(Profile)}</ProtectedRoute>} />
               <Route path="/limits" element={<ProtectedRoute>{withErrorBoundary(AccountLimits)}</ProtectedRoute>} />
               <Route path="/premium" element={<ProtectedRoute>{withErrorBoundary(PremiumUpgrade)}</ProtectedRoute>} />
+              <Route path="/database" element={<ProtectedRoute>{withErrorBoundary(DatabaseLab)}</ProtectedRoute>} />
               <Route path="*" element={<Navigate to="/home" replace />} />
             </Route>
           </Routes>

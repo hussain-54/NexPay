@@ -12,6 +12,7 @@ import { useSolanaWallet } from '../hooks/useSolanaWallet';
 import { initializeUser, fetchUserAccount } from '../lib/nexpay-sdk';
 import { WalletGuard } from '../components/WalletGuard';
 import { registerUserInFirebase, loginUserInFirebase } from '../lib/firebase';
+import { isSupabaseActive, registerUserInSupabase, loginUserInSupabase } from '../lib/supabaseDb';
 
 const slides = [
   { icon: Globe, title: "Send money to 150+ countries", text: "Global USDC transfers at your fingertips." },
@@ -180,25 +181,34 @@ export const Onboarding = () => {
     }
     setIsLoading(true);
     try {
-      const profile = await loginUserInFirebase(loginEmail, loginPassword);
+      const profile = isSupabaseActive()
+        ? await loginUserInSupabase(loginEmail, loginPassword)
+        : await loginUserInFirebase(loginEmail, loginPassword);
+
+      const name = profile.username || profile.name;
+      const walletAddress = profile.wallet_address || profile.walletAddress;
+      const kycStatus = profile.kyc_status || profile.kycStatus;
+      const kycVerified = profile.kyc_verified ?? profile.kycVerified;
+      const kycDetails = profile.kyc_details || profile.kycDetails;
+      
       if (walletAdapter?.publicKey) {
         const connectedWalletStr = walletAdapter.publicKey.toString();
-        if (profile.walletAddress && profile.walletAddress !== connectedWalletStr) {
+        if (walletAddress && walletAddress !== connectedWalletStr) {
           showToast(`Wallet warning: Connected wallet does not match registered profile wallet.`, "warning");
         }
       }
       login({
-        uid: profile.uid,
-        name: profile.username,
+        uid: profile.id || profile.uid,
+        name,
         email: profile.email,
         phone: profile.phone,
-        walletAddress: profile.walletAddress,
-        kycStatus: profile.kycStatus,
-        kycVerified: profile.kycVerified,
-        kycDetails: profile.kycDetails,
-        tier: profile.kycVerified ? 'Pro' : 'Free'
+        walletAddress,
+        kycStatus,
+        kycVerified,
+        kycDetails,
+        tier: kycVerified ? 'Pro' : 'Free'
       });
-      showToast("Welcome back!", "success");
+      showToast(isSupabaseActive() ? "Welcome back (Supabase)!" : "Welcome back!", "success");
       navigate('/');
     } catch (err) {
       showToast(err.message || "Failed to log in.", "error");
@@ -224,23 +234,37 @@ export const Onboarding = () => {
     }
     setIsLoading(true);
     try {
-      const profile = await registerUserInFirebase(email, password, {
-        username: fullName || username,
-        email,
-        phone,
-        walletAddress: walletAdapter.publicKey.toString(),
-        kycVerified: kycOutcome !== 'rejected',
-        kycStatus: kycOutcome === 'rejected' ? 'rejected' : 'approved',
-        kycDetails: {
-          idType,
-          idFront,
-          idBack,
-          selfie,
-          personal: { fullName: fullName || username, dob, nationality, gender },
-          address: { country, province, city, postalCode, streetAddress },
-          pinSet: true,
-        }
-      });
+      const kycPayload = {
+        idType,
+        idFront,
+        idBack,
+        selfie,
+        personal: { fullName: fullName || username, dob, nationality, gender },
+        address: { country, province, city, postalCode, streetAddress },
+        pinSet: true,
+      };
+
+      let profile;
+      if (isSupabaseActive()) {
+        profile = await registerUserInSupabase(email, password, {
+          username: fullName || username,
+          phone,
+          walletAddress: walletAdapter.publicKey.toString(),
+          kycVerified: kycOutcome !== 'rejected',
+          kycStatus: kycOutcome === 'rejected' ? 'rejected' : 'approved',
+          kycDetails: kycPayload,
+        });
+      } else {
+        profile = await registerUserInFirebase(email, password, {
+          username: fullName || username,
+          email,
+          phone,
+          walletAddress: walletAdapter.publicKey.toString(),
+          kycVerified: kycOutcome !== 'rejected',
+          kycStatus: kycOutcome === 'rejected' ? 'rejected' : 'approved',
+          kycDetails: kycPayload,
+        });
+      }
 
       let txSig = "";
       try {
@@ -249,20 +273,26 @@ export const Onboarding = () => {
         console.warn("Solana program initializer bypassed/mocked:", solanaErr);
       }
 
+      const name = profile.username || fullName || username;
+      const walletAddress = profile.wallet_address || profile.walletAddress;
+      const kycStatus = profile.kyc_status || profile.kycStatus;
+      const kycVerified = profile.kyc_verified ?? profile.kycVerified;
+      const kycDetails = profile.kyc_details || profile.kycDetails;
+
       login({
-        uid: profile.uid,
-        name: profile.username,
+        uid: profile.id || profile.uid,
+        name,
         email: profile.email,
         phone: profile.phone,
-        walletAddress: profile.walletAddress,
-        kycStatus: profile.kycStatus,
-        kycVerified: profile.kycVerified,
-        kycDetails: profile.kycDetails,
-        tier: profile.kycVerified ? 'Pro' : 'Free',
+        walletAddress,
+        kycStatus,
+        kycVerified,
+        kycDetails,
+        tier: kycVerified ? 'Pro' : 'Free',
         txSig
       });
 
-      showToast("You're all set!", "success");
+      showToast(isSupabaseActive() ? "You're all set on Supabase!" : "You're all set!", "success");
       navigate('/');
     } catch (err) {
       showToast(`Setup failed: ${err.message}`, "error");

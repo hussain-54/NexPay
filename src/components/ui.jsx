@@ -1,7 +1,7 @@
 import React, { useState, useId } from 'react';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { ChevronLeft, Loader2, CheckCircle2, XCircle } from 'lucide-react';
+import { ChevronLeft, Loader2, CheckCircle2, XCircle, Info, AlertTriangle } from 'lucide-react';
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
@@ -312,3 +312,26 @@ export const StatusAnimation = ({ type = 'success', size = 100 }) => {
     </div>
   );
 };
+
+export const Alert = ({ variant = 'info', title, children, className }) => {
+  const config = {
+    info: { icon: Info, color: 'border-primary/30 bg-primary/10 text-primary' },
+    success: { icon: CheckCircle2, color: 'border-accent/30 bg-accent/10 text-accent' },
+    warning: { icon: AlertTriangle, color: 'border-warning/30 bg-warning/10 text-warning' },
+    error: { icon: XCircle, color: 'border-danger/30 bg-danger/10 text-danger' },
+  };
+  const { icon: Icon, color } = config[variant] || config.info;
+  return (
+    <div className={cn('flex gap-3 p-4 rounded-2xl border', color, className)} role="alert">
+      <Icon size={20} className="shrink-0 mt-0.5" />
+      <div>
+        {title && <p className="font-semibold text-sm mb-0.5">{title}</p>}
+        <div className="text-sm opacity-90">{children}</div>
+      </div>
+    </div>
+  );
+};
+
+export const Spinner = ({ className }) => (
+  <Loader2 className={cn('animate-spin text-primary', className)} />
+);
